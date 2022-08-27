@@ -14,7 +14,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		E592859E28BA4F8900523E24 /* P01-WeSplit.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "P01-WeSplit.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		E592859E28BA4F8900523E24 /* WeSplit.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WeSplit.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E59285A128BA4F8900523E24 /* P01_WeSplitApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = P01_WeSplitApp.swift; sourceTree = "<group>"; };
 		E59285A328BA4F8900523E24 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		E59285A528BA4F8900523E24 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -43,7 +43,7 @@
 		E592859F28BA4F8900523E24 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				E592859E28BA4F8900523E24 /* P01-WeSplit.app */,
+				E592859E28BA4F8900523E24 /* WeSplit.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -84,7 +84,7 @@
 			);
 			name = "P01-WeSplit";
 			productName = "P01-WeSplit";
-			productReference = E592859E28BA4F8900523E24 /* P01-WeSplit.app */;
+			productReference = E592859E28BA4F8900523E24 /* WeSplit.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -279,8 +279,8 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "com.balkarjun.P01-WeSplit";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_BUNDLE_IDENTIFIER = com.balkarjun.WeSplit;
+				PRODUCT_NAME = WeSplit;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -307,8 +307,8 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "com.balkarjun.P01-WeSplit";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_BUNDLE_IDENTIFIER = com.balkarjun.WeSplit;
+				PRODUCT_NAME = WeSplit;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
