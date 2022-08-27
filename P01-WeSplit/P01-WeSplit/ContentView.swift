@@ -46,14 +46,21 @@ struct ContentView: View {
                 
                 Section {
                     Text(totalAmount, format: .currency(code: currencyCode))
+                        .frame(maxWidth: .infinity, alignment: .center)
                 } header: {
                     Text("Grand Total")
+                        .frame(maxWidth: .infinity, alignment: .center)
                 }
                 
                 Section {
                     Text(amountPerPerson, format: .currency(code: currencyCode))
+                        .bold()
+                        .font(.title3)
+                        .padding()
+                        .frame(maxWidth: .infinity, alignment: .center)
                 } header: {
                     Text("Amount Per Person")
+                        .frame(maxWidth: .infinity, alignment: .center)
                 }
             }
             .navigationTitle("WeSplit")
