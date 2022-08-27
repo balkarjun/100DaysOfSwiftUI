@@ -1,4 +1,4 @@
-# 100 Days Of Swift UI
+# 100 Days Of SwiftUI
 All the projects I've made while following the [**100 Days of SwiftUI**](https://www.hackingwithswift.com/100/swiftui) course by Paul Hudson ([@twostraws](https://github.com/twostraws)).
 
 Projects | Preview
