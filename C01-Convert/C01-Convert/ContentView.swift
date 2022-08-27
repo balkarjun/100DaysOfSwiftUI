@@ -11,6 +11,7 @@ struct ContentView: View {
     @State private var inputValue = 12.0
     @State private var inputUnit = "C"
     @State private var outputUnit = "K"
+    @FocusState private var isFocused: Bool
     
     let units = ["C", "F", "K"]
     
@@ -38,6 +39,8 @@ struct ContentView: View {
                 Section {
                     HStack {
                         TextField("Input", value: $inputValue, format: .number)
+                            .keyboardType(.decimalPad)
+                            .focused($isFocused)
                             .padding(.leading)
                         
                         Divider()
@@ -72,6 +75,15 @@ struct ContentView: View {
                 }
             }
             .navigationTitle("Converter")
+            .toolbar {
+                ToolbarItemGroup(placement: .keyboard) {
+                    Spacer()
+                    
+                    Button("Done") {
+                        isFocused = false
+                    }
+                }
+            }
         }
     }
 }
