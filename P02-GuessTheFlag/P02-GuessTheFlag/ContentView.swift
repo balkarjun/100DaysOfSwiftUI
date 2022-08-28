@@ -19,6 +19,12 @@ struct ContentView: View {
     
     var body: some View {
         ZStack {
+            Image("topography")
+                .resizable(resizingMode: .tile)
+                .background(.teal)
+                .opacity(0.03)
+                .ignoresSafeArea()
+            
             VStack(spacing: 30) {
                 VStack {
                     Text("GUESS THE FLAG OF")
@@ -53,7 +59,7 @@ struct ContentView: View {
                 }
                 .frame(maxWidth: .infinity)
                 .padding(.vertical, 30)
-                .background(.thinMaterial)
+                .background(.teal.opacity(0.10))
                 .clipShape(RoundedRectangle(cornerRadius: 16))
                 
                 HStack {
