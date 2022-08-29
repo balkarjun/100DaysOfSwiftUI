@@ -80,7 +80,7 @@ struct ContentView: View {
                 }
                 .frame(maxWidth: .infinity)
                 .padding(.vertical, 30)
-                .background(.teal.opacity(0.10))
+                .background(.teal.opacity(0.15))
                 .clipShape(RoundedRectangle(cornerRadius: 16))
                 
                 HStack {
@@ -124,7 +124,6 @@ struct ContentView: View {
                     .disabled(!showNextButton)
                 }
                 .tint(.teal)
-                .background()
             }
             .padding(.horizontal, 30)
         }
