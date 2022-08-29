@@ -40,51 +40,42 @@ struct ContentView: View {
                 
                 VStack(spacing: 20) {
                     ForEach(0..<3) { number in
-                        Button {
-                            if showNextButton { return }
-                            
-                            if number == correctAnswer {
-                                score += 1
-                            }
-                            
-                            total += 1
-                            tappedAnswer = number
-                            showNextButton = true
-                        } label: {
-                            ZStack {
-                                if !showNextButton {
-                                    Image(countries[number])
-                                        .renderingMode(.original)
-                                        .clipShape(RoundedRectangle(cornerRadius: 8))
-                                        .shadow(radius: 10)
-                                } else {
-                                    let opacity = (number == tappedAnswer) ? 1 : 0.5
-                                    Image(countries[number])
-                                        .renderingMode(.original)
-                                        .clipShape(RoundedRectangle(cornerRadius: 8))
-                                        .shadow(radius: 10)
-                                        .opacity(opacity)
+                        ZStack {
+                            Button {
+                                if showNextButton { return }
+                                
+                                if number == correctAnswer {
+                                    score += 1
                                 }
                                 
-                                if number == tappedAnswer {
-                                    let isCorrect = (tappedAnswer == correctAnswer)
-                                    let color: Color = isCorrect ? .green : .red
-                                    let imageName = isCorrect ? "checkmark.circle.fill" : "xmark.circle.fill"
-                                    
-                                    RoundedRectangle(cornerRadius: 8)
-                                        .foregroundColor(color)
-                                        .opacity(0.5)
-                                    
-                                    Image(systemName: imageName)
-                                        .resizable()
-                                        .frame(width: 36, height: 36)
-                                        .foregroundColor(.white)
-                                        .background(color)
-                                        .clipShape(Circle())
-                                }
+                                total += 1
+                                tappedAnswer = number
+                                showNextButton = true
+                            } label: {
+                                Image(countries[number])
+                                    .renderingMode(.original)
+                                    .clipShape(RoundedRectangle(cornerRadius: 8))
+                                    .shadow(radius: 10)
                             }
-                            .fixedSize()
+                            
+                            if number == tappedAnswer {
+                                let isCorrect = (tappedAnswer == correctAnswer)
+                                let color: Color = isCorrect ? .green : .red
+                                let imageName = isCorrect ? "checkmark.circle.fill" : "xmark.circle.fill"
+                                
+                                RoundedRectangle(cornerRadius: 8)
+                                    .foregroundColor(color)
+                                    .opacity(0.5)
+                                
+                                Image(systemName: imageName)
+                                    .resizable()
+                                    .frame(width: 36, height: 36)
+                                    .foregroundColor(.white)
+                                    .background(color)
+                                    .clipShape(Circle())
+                            }
                         }
+                        .fixedSize()
                     }
                 }
                 .frame(maxWidth: .infinity)
@@ -95,48 +86,12 @@ struct ContentView: View {
                 HStack {
                     Spacer()
                     
-                    VStack {
-                        Text("CORRECT")
-                            .bold()
-                            .font(.subheadline)
-                            .foregroundColor(.secondary)
-                        
-                        if total != 0 {
-                            Text("\(score)")
-                                .bold()
-                                .font(.title2)
-                                .foregroundColor(.green)
-                        } else {
-                            Text("——")
-                                .bold()
-                                .opacity(0.5)
-                                .foregroundColor(.secondary)
-                        }
-                    }
-                    .frame(minHeight: 60)
+                    scoreDisplay(value: score, caption: "CORRECT", color: .green, show: total != 0)
                     
                     Spacer()
                     Spacer()
                     
-                    VStack {
-                        Text("WRONG")
-                            .bold()
-                            .font(.subheadline)
-                            .foregroundColor(.secondary)
-                        
-                        if total != 0 {
-                            Text(total - score, format: .number)
-                                .bold()
-                                .font(.title2)
-                                .foregroundColor(.red)
-                        } else {
-                            Text("——")
-                                .bold()
-                                .opacity(0.5)
-                                .foregroundColor(.secondary)
-                        }
-                    }
-                    .frame(minHeight: 60)
+                    scoreDisplay(value: total - score, caption: "WRONG", color: .red, show: total != 0)
                     
                     Spacer()
                 }
@@ -150,7 +105,6 @@ struct ContentView: View {
                             .font(.body.bold())
                             .padding(10)
                     }
-                    .tint(.teal)
                     .buttonStyle(.bordered)
                     .disabled(total == 0)
 
@@ -166,10 +120,11 @@ struct ContentView: View {
                             .padding(.horizontal, 30)
                             .padding(.vertical, 10)
                     }
-                    .tint(.teal)
                     .buttonStyle(.borderedProminent)
                     .disabled(!showNextButton)
                 }
+                .tint(.teal)
+                .background()
             }
             .padding(.horizontal, 30)
         }
@@ -187,6 +142,24 @@ struct ContentView: View {
         score = 0
         total = 0
     }
+}
+
+func scoreDisplay(value: Int, caption: String, color: Color, show: Bool) -> some View {
+    VStack {
+        Text(caption)
+            .bold()
+            .font(.subheadline)
+            .foregroundColor(.secondary)
+        
+        let text = show ? "\(value)" : "——"
+        let fgColor = show ? color : .secondary.opacity(0.3)
+        
+        Text(text)
+            .bold()
+            .font(.title2)
+            .foregroundColor(fgColor)
+    }
+    .frame(minHeight: 60)
 }
 
 struct ContentView_Previews: PreviewProvider {
