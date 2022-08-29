@@ -11,6 +11,8 @@ struct ContentView: View {
     @State private var showingScore = false
     @State private var scoreTitle = ""
     
+    @State private var showNextButton = false
+    
     @State private var countries = ["Estonia", "France", "Germany", "Ireland", "Italy", "Nigeria", "Poland", "Russia", "Spain", "UK", "US"].shuffled()
     @State private var correctAnswer = Int.random(in: 0...2)
     @State private var tappedAnswer = -1
@@ -41,6 +43,8 @@ struct ContentView: View {
                 VStack(spacing: 20) {
                     ForEach(0..<3) { number in
                         Button {
+                            if showNextButton { return }
+                            
                             tappedAnswer = number
                             
                             if number == correctAnswer {
@@ -52,12 +56,22 @@ struct ContentView: View {
                             
                             total += 1
                             showingScore = true
+                            showNextButton = true
                         } label: {
                             ZStack {
-                                Image(countries[number])
-                                    .renderingMode(.original)
-                                    .clipShape(RoundedRectangle(cornerRadius: 8))
-                                    .shadow(radius: 10)
+                                if !showNextButton {
+                                    Image(countries[number])
+                                        .renderingMode(.original)
+                                        .clipShape(RoundedRectangle(cornerRadius: 8))
+                                        .shadow(radius: 10)
+                                } else {
+                                    let opacity = (number == tappedAnswer) ? 1 : 0.5
+                                    Image(countries[number])
+                                        .renderingMode(.original)
+                                        .clipShape(RoundedRectangle(cornerRadius: 8))
+                                        .shadow(radius: 10)
+                                        .opacity(opacity)
+                                }
                                 
                                 if number == tappedAnswer {
                                     let isCorrect = (tappedAnswer == correctAnswer)
@@ -133,14 +147,32 @@ struct ContentView: View {
                     
                     Spacer()
                 }
+                
+                Section {
+                    // go to next question
+                    Button() {
+                        countries.shuffle()
+                        correctAnswer = Int.random(in: 0...2)
+                        tappedAnswer = -1
+                        showNextButton = false
+                    } label: {
+                        Text("Next Question")
+                            .bold()
+                            .padding(.horizontal, 30)
+                            .padding(.vertical, 10)
+                    }
+                    .tint(.teal)
+                    .buttonStyle(.bordered)
+                    .disabled(!showNextButton)
+                }
             }
             .padding(.horizontal, 30)
         }
-        .alert(scoreTitle, isPresented: $showingScore) {
-            Button("Continue", action: askQuestion)
-        } message: {
-            Text("Your score is \(score)")
-        }
+//        .alert(scoreTitle, isPresented: $showingScore) {
+//            Button("Continue", action: askQuestion)
+//        } message: {
+//            Text("Your score is \(score)")
+//        }
     }
     
     func askQuestion() {
