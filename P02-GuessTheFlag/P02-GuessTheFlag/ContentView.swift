@@ -8,9 +8,7 @@
 import SwiftUI
 
 struct ContentView: View {
-    @State private var showingScore = false
-    @State private var scoreTitle = ""
-    
+    @State private var showResetAlert = false
     @State private var showNextButton = false
     
     @State private var countries = ["Estonia", "France", "Germany", "Ireland", "Italy", "Nigeria", "Poland", "Russia", "Spain", "UK", "US"].shuffled()
@@ -45,17 +43,12 @@ struct ContentView: View {
                         Button {
                             if showNextButton { return }
                             
-                            tappedAnswer = number
-                            
                             if number == correctAnswer {
-                                scoreTitle = "Correct"
                                 score += 1
-                            } else {
-                                scoreTitle = "Wrong"
                             }
                             
                             total += 1
-                            showingScore = true
+                            tappedAnswer = number
                             showNextButton = true
                         } label: {
                             ZStack {
@@ -148,7 +141,19 @@ struct ContentView: View {
                     Spacer()
                 }
                 
-                Section {
+                HStack {
+                    // reset game
+                    Button() {
+                        showResetAlert = true
+                    } label: {
+                        Image(systemName: "repeat")
+                            .font(.body.bold())
+                            .padding(10)
+                    }
+                    .tint(.teal)
+                    .buttonStyle(.bordered)
+                    .disabled(total == 0)
+
                     // go to next question
                     Button() {
                         countries.shuffle()
@@ -162,23 +167,25 @@ struct ContentView: View {
                             .padding(.vertical, 10)
                     }
                     .tint(.teal)
-                    .buttonStyle(.bordered)
+                    .buttonStyle(.borderedProminent)
                     .disabled(!showNextButton)
                 }
             }
             .padding(.horizontal, 30)
         }
-//        .alert(scoreTitle, isPresented: $showingScore) {
-//            Button("Continue", action: askQuestion)
-//        } message: {
-//            Text("Your score is \(score)")
-//        }
+        .alert("Restart Game?", isPresented: $showResetAlert) {
+            Button("Yes", action: resetGame)
+            Button("Cancel", role: .cancel) {}
+        }
     }
     
-    func askQuestion() {
+    func resetGame() {
         countries.shuffle()
         correctAnswer = Int.random(in: 0...2)
         tappedAnswer = -1
+        showNextButton = false
+        score = 0
+        total = 0
     }
 }
 
