@@ -13,10 +13,11 @@ struct ContentView: View {
     
     @State private var countries = ["Estonia", "France", "Germany", "Ireland", "Italy", "Nigeria", "Poland", "Russia", "Spain", "UK", "US"].shuffled()
     @State private var correctAnswer = Int.random(in: 0...2)
+    @State private var tappedAnswer = -1
     
     @State private var score = 0
     @State private var total = 0
-    
+
     var body: some View {
         ZStack {
             Image("topography")
@@ -40,6 +41,8 @@ struct ContentView: View {
                 VStack(spacing: 20) {
                     ForEach(0..<3) { number in
                         Button {
+                            tappedAnswer = number
+                            
                             if number == correctAnswer {
                                 scoreTitle = "Correct"
                                 score += 1
@@ -50,10 +53,30 @@ struct ContentView: View {
                             total += 1
                             showingScore = true
                         } label: {
-                            Image(countries[number])
-                                .renderingMode(.original)
-                                .clipShape(RoundedRectangle(cornerRadius: 8))
-                                .shadow(radius: 10)
+                            ZStack {
+                                Image(countries[number])
+                                    .renderingMode(.original)
+                                    .clipShape(RoundedRectangle(cornerRadius: 8))
+                                    .shadow(radius: 10)
+                                
+                                if number == tappedAnswer {
+                                    let isCorrect = (tappedAnswer == correctAnswer)
+                                    let color: Color = isCorrect ? .green : .red
+                                    let imageName = isCorrect ? "checkmark.circle.fill" : "xmark.circle.fill"
+                                    
+                                    RoundedRectangle(cornerRadius: 8)
+                                        .foregroundColor(color)
+                                        .opacity(0.5)
+                                    
+                                    Image(systemName: imageName)
+                                        .resizable()
+                                        .frame(width: 36, height: 36)
+                                        .foregroundColor(.white)
+                                        .background(color)
+                                        .clipShape(Circle())
+                                }
+                            }
+                            .fixedSize()
                         }
                     }
                 }
@@ -123,6 +146,7 @@ struct ContentView: View {
     func askQuestion() {
         countries.shuffle()
         correctAnswer = Int.random(in: 0...2)
+        tappedAnswer = -1
     }
 }
 
