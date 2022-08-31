@@ -5,3 +5,4 @@ Projects | Preview
 --- | ---
 <sub>Days 16-18</sub> <br> **[Project 01](P01-WeSplit) - WeSplit** <br> A check splitting app | <img src="https://user-images.githubusercontent.com/23068820/187034737-85e93148-f0b0-4557-a9af-e906c239106d.png" width="300">
 <sub>Day 19</sub> <br> **[Challenge 01](C01-Convert) - Convert** <br> An app for temperature conversion | <img src="https://user-images.githubusercontent.com/23068820/187061843-9bbf6b81-2a16-4a3a-b66b-ddaef8d55b8b.png" width="300">
+<sub>Days 20-22</sub> <br> **[Project 02](P02-GuessTheFlag) - Guess the Flag** <br> A flag-guessing game | <img src="https://user-images.githubusercontent.com/23068820/187620496-34a85f8e-816c-4dfb-8a74-46940122e080.png" width="300">
