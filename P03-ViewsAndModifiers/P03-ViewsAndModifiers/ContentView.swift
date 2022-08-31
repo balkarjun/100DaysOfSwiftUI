@@ -7,10 +7,54 @@
 
 import SwiftUI
 
+// custom modifier
+struct Watermark: ViewModifier {
+    var text: String
+    
+    func body(content: Content) -> some View {
+        ZStack(alignment: .bottomTrailing) {
+            content
+            
+            Text(text)
+                .bold()
+                .foregroundColor(.primary)
+                .padding(.vertical, 4)
+                .padding(.horizontal, 10)
+                .background(.thinMaterial)
+                .clipShape(RoundedRectangle(cornerRadius: 6))
+                .padding(8)
+        }
+    }
+}
+
+// extension, so we can use .watermark()
+// instead of .modifier(Watermark())
+extension View {
+    func watermark(text: String) -> some View {
+        modifier(Watermark(text: text))
+    }
+}
+
+struct ColoredCard: View {
+    var color: Color
+    
+    var body: some View {
+        RoundedRectangle(cornerRadius: 8)
+            .frame(width: 300, height: 200)
+            .foregroundColor(color)
+            .watermark(text: "@balkarjun")
+    }
+}
+
 struct ContentView: View {
     var body: some View {
-        Text("Hello, world!")
-            .padding()
+        VStack {
+            ColoredCard(color: .yellow)
+            
+            ColoredCard(color: .orange)
+            
+            ColoredCard(color: .red)
+        }
     }
 }
 
