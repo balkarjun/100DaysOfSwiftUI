@@ -14,7 +14,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		E5F46C0228BF8C9E00963E57 /* P03-ViewsAndModifiers.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "P03-ViewsAndModifiers.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		E5F46C0228BF8C9E00963E57 /* ViewsAndModifiers.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ViewsAndModifiers.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E5F46C0528BF8C9E00963E57 /* P03_ViewsAndModifiersApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = P03_ViewsAndModifiersApp.swift; sourceTree = "<group>"; };
 		E5F46C0728BF8C9E00963E57 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		E5F46C0928BF8C9F00963E57 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -43,7 +43,7 @@
 		E5F46C0328BF8C9E00963E57 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				E5F46C0228BF8C9E00963E57 /* P03-ViewsAndModifiers.app */,
+				E5F46C0228BF8C9E00963E57 /* ViewsAndModifiers.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -84,7 +84,7 @@
 			);
 			name = "P03-ViewsAndModifiers";
 			productName = "P03-ViewsAndModifiers";
-			productReference = E5F46C0228BF8C9E00963E57 /* P03-ViewsAndModifiers.app */;
+			productReference = E5F46C0228BF8C9E00963E57 /* ViewsAndModifiers.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -279,8 +279,8 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "com.balkarjun.P03-ViewsAndModifiers";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_BUNDLE_IDENTIFIER = com.balkarjun.ViewsAndModifiers;
+				PRODUCT_NAME = ViewsAndModifiers;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -307,8 +307,8 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "com.balkarjun.P03-ViewsAndModifiers";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_BUNDLE_IDENTIFIER = com.balkarjun.ViewsAndModifiers;
+				PRODUCT_NAME = ViewsAndModifiers;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
