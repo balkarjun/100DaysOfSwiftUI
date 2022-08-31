@@ -21,7 +21,7 @@ struct Watermark: ViewModifier {
                 .padding(.vertical, 4)
                 .padding(.horizontal, 10)
                 .background(.thinMaterial)
-                .clipShape(RoundedRectangle(cornerRadius: 6))
+                .cornerRadius(6)
                 .padding(8)
         }
     }
@@ -39,9 +39,9 @@ struct ColoredCard: View {
     var color: Color
     
     var body: some View {
-        RoundedRectangle(cornerRadius: 8)
+        color
+            .cornerRadius(8)
             .frame(width: 300, height: 200)
-            .foregroundColor(color)
             .watermark(text: "@balkarjun")
     }
 }
