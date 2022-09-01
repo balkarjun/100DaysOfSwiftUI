@@ -16,7 +16,9 @@ struct ContentView: View {
     @State private var toWin = Bool.random()
     
     @State private var score = 0
+    @State private var questionNumber = 1
     
+    @State private var endGame = false
     @State private var showNextButton = false
     
     var body: some View {
@@ -51,17 +53,35 @@ struct ContentView: View {
             
             Text(score, format: .number)
             
+            Text("Question \(questionNumber) of 10")
+            
             Button("Next") {
-                nextQuestion()
-                showNextButton = false
+                if questionNumber == 10 {
+                    endGame = true
+                    // this means we pressed the next button on the last question.
+                } else {
+                    showNextButton = false
+                    nextQuestion()
+                }
             }
             .disabled(!showNextButton)
+        }
+        .alert("Game Complete", isPresented: $endGame) {
+            Button("Play Again") {
+                score = 0
+                questionNumber = 0
+                showNextButton = false
+                nextQuestion()
+            }
+        } message: {
+            Text("Your Final Score is \(score)")
         }
     }
     
     func nextQuestion() {
         question = Int.random(in: 0...2)
         toWin = Bool.random()
+        questionNumber += 1
     }
 }
 
