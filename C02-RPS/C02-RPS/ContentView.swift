@@ -12,6 +12,10 @@ struct ContentView: View {
     let winChoices = ["Paper", "Scissor", "Rock"]
     let loseChoices = ["Scissor", "Rock", "Paper"]
     
+    let icons = ["Rock" : "✊🏼",
+        "Paper": "🖐🏼",
+        "Scissor": "✌🏼"]
+    
     @State private var question = Int.random(in: 0...2)
     @State private var toWin = Bool.random()
     
@@ -23,7 +27,7 @@ struct ContentView: View {
     
     var body: some View {
         VStack {
-            Text(options[question])
+            Text(icons[options[question]]!)
             Text(toWin ? "Play to Win" : "Play to Lose")
             
             HStack {
@@ -45,7 +49,7 @@ struct ContentView: View {
                         
                         showNextButton = true
                     } label: {
-                        Text("\(options[choice])")
+                        Text("\(icons[options[choice]]!)")
                     }
                     .disabled(showNextButton)
                 }
