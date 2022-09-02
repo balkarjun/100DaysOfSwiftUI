@@ -155,8 +155,17 @@ struct ContentView: View {
     }
     
     func nextQuestion() {
-        question = Int.random(in: 0...2)
-        toWin = Bool.random()
+        var newQuestion: Int
+        var newToWin: Bool
+        // avoid repeat questions
+        repeat {
+            newQuestion = Int.random(in: 0...2)
+            newToWin = Bool.random()
+        } while (newQuestion == question && newToWin == toWin)
+        
+        question = newQuestion
+        toWin = newToWin
+        
         questionNumber += 1
     }
 }
