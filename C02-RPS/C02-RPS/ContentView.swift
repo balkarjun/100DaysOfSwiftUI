@@ -13,10 +13,7 @@ struct ContentView: View {
     let loseChoices = ["Scissor", "Rock", "Paper"]
     
     let colors: [Color] = [.red, .green, .blue]
-    
-    let icons = ["Rock" : "✊🏼",
-        "Paper": "🖐🏼",
-        "Scissor": "✌🏼"]
+    let images: [Image] = [Image("rock"), Image("paper"), Image("scissor")]
     
     @State private var question = Int.random(in: 0...2)
     @State private var toWin = Bool.random()
@@ -33,53 +30,54 @@ struct ContentView: View {
             Spacer()
 
             VStack {
-                Text(icons[options[question]]!)
-                    .font(.system(size: 100))
+                images[question]
+                    .resizable()
+                    .padding(36)
+                    .frame(width: 200, height: 200)
+                    .background(colors[question])
+                    .clipShape(Circle())
                 
                 Spacer(minLength: 30)
                 
-                VStack {
-                    Text("CHOOSE TO")
-                        .font(.subheadline)
-                        .bold()
-                        .foregroundColor(.secondary)
-                    Text(toWin ? "Win" : "Lose")
-                        .font(.largeTitle)
-                        .bold()
-                }
+                VStack(spacing: 10) {
+                    VStack {
+                        Text("CHOOSE TO")
+                            .font(.subheadline)
+                            .bold()
+                            .foregroundColor(.secondary)
+                        Text(toWin ? "Win" : "Lose")
+                            .font(.largeTitle)
+                            .bold()
+                    }
 
-                HStack {
-                    ForEach(0..<3) { choice in
-                        Button {
-                            if toWin {
-                                if options[choice] == winChoices[question] {
-                                    score += 10
+                    HStack {
+                        ForEach(0..<3) { choice in
+                            Button {
+                                if toWin {
+                                    if options[choice] == winChoices[question] {
+                                        score += 10
+                                    } else {
+                                        score -= 10
+                                    }
                                 } else {
-                                    score -= 10
+                                    if options[choice] == loseChoices[question] {
+                                        score += 10
+                                    } else {
+                                        score -= 10
+                                    }
                                 }
-                            } else {
-                                if options[choice] == loseChoices[question] {
-                                    score += 10
-                                } else {
-                                    score -= 10
-                                }
-                            }
-                            
-                            showNextButton = true
-                        } label: {
-                            ZStack {
-                                colors[choice]
-                                    .cornerRadius(8)
                                 
-                                Color.clear
-                                    .background(.regularMaterial)
+                                showNextButton = true
+                            } label: {
+                                images[choice]
+                                    .resizable()
+                                    .scaledToFit()
+                                    .padding(12)
+                                    .background(colors[choice])
                                     .cornerRadius(8)
-                                
-                                Text("\(icons[options[choice]]!)")
-                                    .font(.system(size: 80))
                             }
+                            .disabled(showNextButton)
                         }
-                        .disabled(showNextButton)
                     }
                 }
             }
@@ -115,7 +113,6 @@ struct ContentView: View {
                         Button {
                             if questionNumber == 10 {
                                 endGame = true
-                                // this means we pressed the next button on the last question.
                             } else {
                                 showNextButton = false
                                 nextQuestion()
