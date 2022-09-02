@@ -25,6 +25,7 @@ struct ContentView: View {
     @State private var questionNumber = 1
     
     @State private var endGame = false
+    @State private var shouldReset = false
     @State private var showNextButton = false
     
     var body: some View {
@@ -99,23 +100,35 @@ struct ContentView: View {
                         .bold()
                         .foregroundColor(.teal)
                     
-                    Button {
-                        if questionNumber == 10 {
-                            endGame = true
-                            // this means we pressed the next button on the last question.
-                        } else {
-                            showNextButton = false
-                            nextQuestion()
+                    HStack {
+                        Button {
+                            shouldReset = true
+                        } label: {
+                            Image(systemName: "repeat")
+                                .font(.body.bold())
+                                .padding(8)
                         }
-                    } label: {
-                        Text("Next Question")
-                            .bold()
-                            .padding(.vertical, 8)
-                            .padding(.horizontal, 40)
+                        .buttonStyle(.bordered)
+                        .tint(.teal)
+                        
+                        Button {
+                            if questionNumber == 10 {
+                                endGame = true
+                                // this means we pressed the next button on the last question.
+                            } else {
+                                showNextButton = false
+                                nextQuestion()
+                            }
+                        } label: {
+                            Text("Next Question")
+                                .bold()
+                                .padding(.vertical, 8)
+                                .padding(.horizontal, 40)
+                        }
+                        .disabled(!showNextButton)
+                        .buttonStyle(.bordered)
+                        .tint(.teal)
                     }
-                    .disabled(!showNextButton)
-                    .buttonStyle(.bordered)
-                    .tint(.teal)
                 }
             }
             
@@ -123,15 +136,21 @@ struct ContentView: View {
         }
         .padding(.horizontal, 30)
         .alert("Game Complete", isPresented: $endGame) {
-            Button("Play Again") {
-                score = 0
-                questionNumber = 0
-                showNextButton = false
-                nextQuestion()
-            }
+            Button("Play Again", action: resetGame)
         } message: {
             Text("Your Final Score is \(score)")
         }
+        .alert("Reset Game?", isPresented: $shouldReset) {
+            Button("Yes", action: resetGame)
+            Button("Cancel", role: .cancel) {}
+        }
+    }
+    
+    func resetGame() {
+        score = 0
+        questionNumber = 0
+        showNextButton = false
+        nextQuestion()
     }
     
     func nextQuestion() {
