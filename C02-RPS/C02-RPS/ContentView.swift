@@ -93,6 +93,7 @@ struct ContentView: View {
                     Text(score, format: .number)
                         .font(.largeTitle)
                         .bold()
+                        .foregroundColor(score < 0 ? .red : .green)
                 }
                 
                 VStack(spacing: 8) {
@@ -126,7 +127,7 @@ struct ContentView: View {
                                 .padding(.horizontal, 40)
                         }
                         .disabled(!showNextButton)
-                        .buttonStyle(.bordered)
+                        .buttonStyle(.borderedProminent)
                         .tint(.teal)
                     }
                 }
