@@ -25,6 +25,9 @@ struct ContentView: View {
     @State private var shouldReset = false
     @State private var showNextButton = false
     
+    @State private var isAnswerCorrect = false
+    @State private var tappedChoice = 0
+    
     var scoreColor: Color {
         if score == 0 {
             return .secondary
@@ -92,35 +95,60 @@ struct ContentView: View {
 
                 HStack {
                     ForEach(0..<3) { choice in
-                        Button {
-                            if toWin {
-                                if options[choice] == winChoices[question] {
+                        ZStack {
+                            Button {
+                                if toWin {
+                                    if options[choice] == winChoices[question] {
+                                        isAnswerCorrect = true
+                                    } else {
+                                        isAnswerCorrect = false
+                                    }
+                                } else {
+                                    if options[choice] == loseChoices[question] {
+                                        isAnswerCorrect = true
+                                    } else {
+                                        isAnswerCorrect = false
+                                    }
+                                }
+                                
+                                if isAnswerCorrect {
                                     score += 10
                                 } else {
                                     score -= 10
                                 }
-                            } else {
-                                if options[choice] == loseChoices[question] {
-                                    score += 10
-                                } else {
-                                    score -= 10
-                                }
+                                
+                                tappedChoice = choice
+                                showNextButton = true
+                            } label: {
+                                images[choice]
+                                    .resizable()
+                                    .frame(width: 80, height: 80)
+                                    .padding(16)
+                                    .shadow(radius: 5)
+                                    .background(colors[choice].opacity(0.9))
+                                    .cornerRadius(10)
                             }
+                            .disabled(showNextButton)
                             
-                            showNextButton = true
-                        } label: {
-                            images[choice]
-                                .resizable()
-                                .scaledToFit()
-                                .padding(16)
-                                .shadow(radius: 5)
-                                .background(colors[choice].opacity(0.9))
-                                .cornerRadius(10)
+                            if showNextButton && choice == tappedChoice {
+                                let color: Color = isAnswerCorrect ? .green : .red
+                                let imageName: String = isAnswerCorrect ? "checkmark.circle.fill" : "xmark.circle.fill"
+                                
+                                color
+                                    .opacity(0.5)
+                                    .cornerRadius(10)
+                                
+                                Image(systemName: imageName)
+                                    .resizable()
+                                    .frame(width: 36, height: 36)
+                                    .foregroundColor(.white)
+                                    .background(color)
+                                    .clipShape(Circle())
+                            }
                         }
-                        .disabled(showNextButton)
+                        .fixedSize()
                     }
                 }
-                .padding(.horizontal, 30)
             }
 
             HStack {
