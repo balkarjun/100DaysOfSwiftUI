@@ -25,114 +25,131 @@ struct ContentView: View {
     @State private var shouldReset = false
     @State private var showNextButton = false
     
+    var scoreColor: Color {
+        if score == 0 {
+            return .secondary
+        }
+        
+        return (score < 0) ? .red : .green
+    }
+    
     var body: some View {
         VStack(spacing: 50) {
-            Spacer()
-
-            VStack {
-                images[question]
-                    .resizable()
-                    .padding(36)
-                    .frame(width: 200, height: 200)
-                    .background(colors[question])
-                    .clipShape(Circle())
-                
-                Spacer(minLength: 30)
-                
-                VStack(spacing: 10) {
-                    VStack {
-                        Text("CHOOSE TO")
-                            .font(.subheadline)
-                            .bold()
-                            .foregroundColor(.secondary)
-                        Text(toWin ? "Win" : "Lose")
-                            .font(.largeTitle)
-                            .bold()
-                    }
-
-                    HStack {
-                        ForEach(0..<3) { choice in
-                            Button {
-                                if toWin {
-                                    if options[choice] == winChoices[question] {
-                                        score += 10
-                                    } else {
-                                        score -= 10
-                                    }
-                                } else {
-                                    if options[choice] == loseChoices[question] {
-                                        score += 10
-                                    } else {
-                                        score -= 10
-                                    }
-                                }
-                                
-                                showNextButton = true
-                            } label: {
-                                images[choice]
-                                    .resizable()
-                                    .scaledToFit()
-                                    .padding(12)
-                                    .background(colors[choice])
-                                    .cornerRadius(8)
-                            }
-                            .disabled(showNextButton)
-                        }
-                    }
-                }
-            }
-            
-            VStack(spacing: 40) {
-                VStack {
+            VStack(spacing: 0) {
+                HStack {
                     Text("SCORE")
                         .font(.subheadline)
                         .bold()
                         .foregroundColor(.secondary)
+                    
+                    Spacer()
+                    
+                    Text("ROUND")
+                        .font(.subheadline)
+                        .bold()
+                        .foregroundColor(.secondary)
+                }
+                .padding(.top, 24)
+        
+                HStack {
                     Text(score, format: .number)
+                        .font(.title)
+                        .bold()
+                        .foregroundColor(scoreColor)
+                    
+                    Spacer()
+                    
+                    Text("\(questionNumber) of 10")
+                        .font(.title2)
+                        .bold()
+                }
+                .padding(.bottom, 16)
+            }
+            .padding(.horizontal, 30)
+            .frame(maxWidth: .infinity)
+            .background(.thinMaterial)
+            .cornerRadius(8)
+            .padding(.horizontal, 30)
+            
+            images[question]
+                .resizable()
+                .padding(36)
+                .frame(width: 180, height: 180)
+                .background(colors[question])
+                .clipShape(Circle())
+
+            VStack(spacing: 10) {
+                VStack {
+                    Text("CHOOSE TO")
+                        .font(.subheadline)
+                        .bold()
+                        .foregroundColor(.secondary)
+                    Text(toWin ? "Win" : "Lose")
                         .font(.largeTitle)
                         .bold()
-                        .foregroundColor(score < 0 ? .red : .green)
                 }
-                
-                VStack(spacing: 8) {
-                    Text("\(questionNumber) / 10")
-                        .bold()
-                        .foregroundColor(.teal)
-                    
-                    HStack {
+
+                HStack {
+                    ForEach(0..<3) { choice in
                         Button {
-                            shouldReset = true
-                        } label: {
-                            Image(systemName: "repeat")
-                                .font(.body.bold())
-                                .padding(8)
-                        }
-                        .buttonStyle(.bordered)
-                        .tint(.teal)
-                        
-                        Button {
-                            if questionNumber == 10 {
-                                endGame = true
+                            if toWin {
+                                if options[choice] == winChoices[question] {
+                                    score += 10
+                                } else {
+                                    score -= 10
+                                }
                             } else {
-                                showNextButton = false
-                                nextQuestion()
+                                if options[choice] == loseChoices[question] {
+                                    score += 10
+                                } else {
+                                    score -= 10
+                                }
                             }
+                            
+                            showNextButton = true
                         } label: {
-                            Text("Next Question")
-                                .bold()
-                                .padding(.vertical, 8)
-                                .padding(.horizontal, 40)
+                            images[choice]
+                                .resizable()
+                                .scaledToFit()
+                                .padding(16)
+                                .background(colors[choice])
+                                .cornerRadius(10)
                         }
-                        .disabled(!showNextButton)
-                        .buttonStyle(.borderedProminent)
-                        .tint(.teal)
+                        .disabled(showNextButton)
                     }
                 }
+                .padding(.horizontal, 30)
             }
-            
-            Spacer()
+
+            HStack {
+                Button {
+                    shouldReset = true
+                } label: {
+                    Image(systemName: "repeat")
+                        .font(.body.bold())
+                        .padding(8)
+                }
+                .buttonStyle(.bordered)
+                .tint(.teal)
+                
+                Button {
+                    if questionNumber == 10 {
+                        endGame = true
+                    } else {
+                        showNextButton = false
+                        nextQuestion()
+                    }
+                } label: {
+                    Text("Next Question")
+                        .bold()
+                        .padding(.vertical, 8)
+                        .padding(.horizontal, 40)
+                }
+                .disabled(!showNextButton)
+                .buttonStyle(.borderedProminent)
+                .tint(.teal)
+            }
         }
-        .padding(.horizontal, 30)
         .alert("Game Complete", isPresented: $endGame) {
             Button("Play Again", action: resetGame)
         } message: {
@@ -140,7 +157,7 @@ struct ContentView: View {
         }
         .alert("Reset Game?", isPresented: $shouldReset) {
             Button("Yes", action: resetGame)
-            Button("Cancel", role: .cancel) {}
+            Button("No", role: .cancel) {}
         }
     }
     
