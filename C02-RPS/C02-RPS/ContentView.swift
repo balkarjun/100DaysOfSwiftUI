@@ -75,7 +75,8 @@ struct ContentView: View {
                 .resizable()
                 .padding(36)
                 .frame(width: 180, height: 180)
-                .background(colors[question])
+                .shadow(radius: 5)
+                .background(colors[question].opacity(0.9))
                 .clipShape(Circle())
 
             VStack(spacing: 10) {
@@ -112,7 +113,8 @@ struct ContentView: View {
                                 .resizable()
                                 .scaledToFit()
                                 .padding(16)
-                                .background(colors[choice])
+                                .shadow(radius: 5)
+                                .background(colors[choice].opacity(0.9))
                                 .cornerRadius(10)
                         }
                         .disabled(showNextButton)
@@ -127,7 +129,7 @@ struct ContentView: View {
                 } label: {
                     Image(systemName: "repeat")
                         .font(.body.bold())
-                        .padding(8)
+                        .padding(10)
                 }
                 .buttonStyle(.bordered)
                 .tint(.teal)
@@ -142,8 +144,8 @@ struct ContentView: View {
                 } label: {
                     Text("Next Question")
                         .bold()
-                        .padding(.vertical, 8)
-                        .padding(.horizontal, 40)
+                        .padding(.vertical, 10)
+                        .padding(.horizontal, 50)
                 }
                 .disabled(!showNextButton)
                 .buttonStyle(.borderedProminent)
