@@ -165,8 +165,6 @@ struct ContentView: View {
                 .buttonStyle(.bordered)
                 .foregroundColor(.teal)
                 
-                Spacer()
-                
                 Button {
                     if questionNumber == 10 {
                         endGame = true
@@ -176,9 +174,9 @@ struct ContentView: View {
                     }
                 } label: {
                     Image(systemName: "arrow.right")
+                        .frame(maxWidth: .infinity)
                         .font(.body.bold())
                         .padding(10)
-                        .padding(.horizontal, 20)
                 }
                 .disabled(!showNextButton)
                 .buttonStyle(.borderedProminent)
