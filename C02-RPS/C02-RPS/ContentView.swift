@@ -7,6 +7,28 @@
 
 import SwiftUI
 
+struct Overlay: View {
+    var isCorrect: Bool
+    
+    var body: some View {
+        let color: Color = isCorrect ? .green : .red
+        let imageName: String = isCorrect ? "checkmark.circle.fill" : "xmark.circle.fill"
+        
+        ZStack {
+            color
+                .opacity(0.5)
+                .cornerRadius(10)
+            
+            Image(systemName: imageName)
+                .resizable()
+                .frame(width: 36, height: 36)
+                .foregroundColor(.white)
+                .background(color)
+                .clipShape(Circle())
+        }
+    }
+}
+
 struct ContentView: View {
     let options = ["Rock", "Paper", "Scissor"]
     let winChoices = ["Paper", "Scissor", "Rock"]
@@ -72,7 +94,7 @@ struct ContentView: View {
             .frame(maxWidth: .infinity)
             .background(.thinMaterial)
             .cornerRadius(8)
-            .padding(.horizontal, 30)
+            .padding(.horizontal)
             
             images[question]
                 .resizable()
@@ -95,60 +117,43 @@ struct ContentView: View {
 
                 HStack {
                     ForEach(0..<3) { choice in
-                        ZStack {
-                            Button {
-                                if toWin {
-                                    if options[choice] == winChoices[question] {
-                                        isAnswerCorrect = true
-                                    } else {
-                                        isAnswerCorrect = false
-                                    }
+                        Button {
+                            if toWin {
+                                if options[choice] == winChoices[question] {
+                                    isAnswerCorrect = true
                                 } else {
-                                    if options[choice] == loseChoices[question] {
-                                        isAnswerCorrect = true
-                                    } else {
-                                        isAnswerCorrect = false
-                                    }
+                                    isAnswerCorrect = false
                                 }
-                                
-                                if isAnswerCorrect {
-                                    score += 10
+                            } else {
+                                if options[choice] == loseChoices[question] {
+                                    isAnswerCorrect = true
                                 } else {
-                                    score -= 10
+                                    isAnswerCorrect = false
                                 }
-                                
-                                tappedChoice = choice
-                                showNextButton = true
-                            } label: {
-                                images[choice]
-                                    .resizable()
-                                    .frame(width: 80, height: 80)
-                                    .padding(16)
-                                    .shadow(radius: 5)
-                                    .background(colors[choice].opacity(0.9))
-                                    .cornerRadius(10)
                             }
-                            .disabled(showNextButton)
                             
-                            if showNextButton && choice == tappedChoice {
-                                let color: Color = isAnswerCorrect ? .green : .red
-                                let imageName: String = isAnswerCorrect ? "checkmark.circle.fill" : "xmark.circle.fill"
-                                
-                                color
-                                    .opacity(0.5)
-                                    .cornerRadius(10)
-                                
-                                Image(systemName: imageName)
-                                    .resizable()
-                                    .frame(width: 36, height: 36)
-                                    .foregroundColor(.white)
-                                    .background(color)
-                                    .clipShape(Circle())
+                            if isAnswerCorrect {
+                                score += 10
+                            } else {
+                                score -= 10
                             }
+                            
+                            tappedChoice = choice
+                            showNextButton = true
+                        } label: {
+                            images[choice]
+                                .resizable()
+                                .aspectRatio(contentMode: .fit)
+                                .padding(16)
+                                .shadow(radius: 5)
+                                .background(colors[choice].opacity(0.9))
+                                .cornerRadius(10)
+                                .overlay((showNextButton && choice == tappedChoice) ? Overlay(isCorrect: isAnswerCorrect) : nil)
                         }
-                        .fixedSize()
+                        .disabled(showNextButton)
                     }
                 }
+                .padding(.horizontal)
             }
 
             HStack {
