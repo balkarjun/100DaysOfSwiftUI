@@ -69,7 +69,7 @@ struct ContentView: View {
                     
                     Spacer()
                     
-                    Text("ROUND")
+                    Text("QUESTION")
                         .font(.subheadline)
                         .bold()
                         .foregroundColor(.secondary)
@@ -94,7 +94,6 @@ struct ContentView: View {
             .frame(maxWidth: .infinity)
             .background(.thinMaterial)
             .cornerRadius(8)
-            .padding(.horizontal)
             
             images[question]
                 .resizable()
@@ -153,7 +152,6 @@ struct ContentView: View {
                         .disabled(showNextButton)
                     }
                 }
-                .padding(.horizontal)
             }
 
             HStack {
@@ -165,7 +163,9 @@ struct ContentView: View {
                         .padding(10)
                 }
                 .buttonStyle(.bordered)
-                .tint(.teal)
+                .foregroundColor(.teal)
+                
+                Spacer()
                 
                 Button {
                     if questionNumber == 10 {
@@ -175,16 +175,17 @@ struct ContentView: View {
                         nextQuestion()
                     }
                 } label: {
-                    Text("Next Question")
-                        .bold()
-                        .padding(.vertical, 10)
-                        .padding(.horizontal, 50)
+                    Image(systemName: "arrow.right")
+                        .font(.body.bold())
+                        .padding(10)
+                        .padding(.horizontal, 20)
                 }
                 .disabled(!showNextButton)
                 .buttonStyle(.borderedProminent)
                 .tint(.teal)
             }
         }
+        .padding(.horizontal, 20)
         .alert("Game Complete", isPresented: $endGame) {
             Button("Play Again", action: resetGame)
         } message: {
