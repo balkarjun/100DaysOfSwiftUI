@@ -14,7 +14,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		E585A04D28C8A82D0074D72B /* P04-BetterRest.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "P04-BetterRest.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		E585A04D28C8A82D0074D72B /* BetterRest.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BetterRest.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E585A05028C8A82D0074D72B /* P04_BetterRestApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = P04_BetterRestApp.swift; sourceTree = "<group>"; };
 		E585A05228C8A82D0074D72B /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		E585A05428C8A8300074D72B /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -43,7 +43,7 @@
 		E585A04E28C8A82D0074D72B /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				E585A04D28C8A82D0074D72B /* P04-BetterRest.app */,
+				E585A04D28C8A82D0074D72B /* BetterRest.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -84,7 +84,7 @@
 			);
 			name = "P04-BetterRest";
 			productName = "P04-BetterRest";
-			productReference = E585A04D28C8A82D0074D72B /* P04-BetterRest.app */;
+			productReference = E585A04D28C8A82D0074D72B /* BetterRest.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -279,8 +279,8 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "com.balkarjun.P04-BetterRest";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_BUNDLE_IDENTIFIER = com.balkarjun.BetterRest;
+				PRODUCT_NAME = BetterRest;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -307,8 +307,8 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "com.balkarjun.P04-BetterRest";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_BUNDLE_IDENTIFIER = com.balkarjun.BetterRest;
+				PRODUCT_NAME = BetterRest;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
