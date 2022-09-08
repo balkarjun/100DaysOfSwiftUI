@@ -70,6 +70,10 @@ struct ContentView: View {
                 
                 Section {
                     Text(bedtime)
+                        .font(.title2.bold())
+                        .padding(.vertical)
+                } header: {
+                    Text("Your ideal bedtime")
                 }
             }
             .navigationTitle("BetterRest")
