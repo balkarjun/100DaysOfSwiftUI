@@ -14,7 +14,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		E58A4E8528D0A3B000E93650 /* P05-WordScramble.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "P05-WordScramble.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		E58A4E8528D0A3B000E93650 /* WordScramble.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WordScramble.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E58A4E8828D0A3B000E93650 /* P05_WordScrambleApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = P05_WordScrambleApp.swift; sourceTree = "<group>"; };
 		E58A4E8A28D0A3B000E93650 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		E58A4E8C28D0A3B100E93650 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -43,7 +43,7 @@
 		E58A4E8628D0A3B000E93650 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				E58A4E8528D0A3B000E93650 /* P05-WordScramble.app */,
+				E58A4E8528D0A3B000E93650 /* WordScramble.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -84,7 +84,7 @@
 			);
 			name = "P05-WordScramble";
 			productName = "P05-WordScramble";
-			productReference = E58A4E8528D0A3B000E93650 /* P05-WordScramble.app */;
+			productReference = E58A4E8528D0A3B000E93650 /* WordScramble.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -279,8 +279,8 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "com.balkarjun.P05-WordScramble";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_BUNDLE_IDENTIFIER = com.balkarjun.WordScramble;
+				PRODUCT_NAME = WordScramble;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -307,8 +307,8 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "com.balkarjun.P05-WordScramble";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_BUNDLE_IDENTIFIER = com.balkarjun.WordScramble;
+				PRODUCT_NAME = WordScramble;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
