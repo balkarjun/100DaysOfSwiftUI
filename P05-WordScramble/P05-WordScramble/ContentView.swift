@@ -18,22 +18,40 @@ struct ContentView: View {
     
     var body: some View {
         NavigationView {
-            List {
-                Section {
-                    TextField("Enter your word", text: $newWord)
-                        .autocapitalization(.none)
-                }
-                
-                Section {
-                    ForEach(usedWords, id: \.self) { word in
-                        HStack {
-                            Image(systemName: "\(word.count).circle")
-                            Text(word)
-                        }
+            VStack {
+                HStack(spacing: 5) {
+                    ForEach(rootWord.map { String($0) }, id: \.self) { letter in
+                        Text(letter.uppercased())
+                            .font(.monospaced(.largeTitle.bold())())
                     }
                 }
+                .frame(maxWidth: .infinity, alignment: .center)
+                .padding(.top, 24)
+                
+                TextField("Type your word", text: $newWord)
+                    .font(.monospaced(.body)())
+                    .autocapitalization(.none)
+                    .padding()
+                    .background(.thinMaterial)
+                    .cornerRadius(8)
+                    .padding()
+                
+                List(usedWords, id: \.self) { word in
+                    HStack {
+                        Text(word)
+                            .font(.monospaced(.body)())
+                        
+                        Spacer()
+                        
+                        Text(word.count, format: .number)
+                            .font(.monospaced(.body.bold())())
+                            .foregroundColor(.green)
+                    }
+                    .padding(.horizontal)
+                }
+                .listStyle(.inset)
             }
-            .navigationTitle(rootWord)
+            .navigationBarTitleDisplayMode(.inline)
             .onSubmit(addNewWord)
             .onAppear(perform: startGame)
             .alert(errorTitle, isPresented: $showingError) {
