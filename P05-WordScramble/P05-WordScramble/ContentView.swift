@@ -46,7 +46,6 @@ struct ContentView: View {
     
     func addNewWord() {
         let answer = newWord.lowercased().trimmingCharacters(in: .whitespacesAndNewlines)
-        guard answer.count > 0 else { return }
         guard isAnswerValid(word: answer) else { return }
         
         withAnimation {
@@ -69,6 +68,16 @@ struct ContentView: View {
     }
     
     func isAnswerValid(word: String) -> Bool {
+        // has at least 3 letters
+        if word.count < 3 {
+            wordError(title: "Word too short", message: "Must be at least 3 letters long")
+            return false
+        }
+        // is not same as start word
+        if word == rootWord {
+            wordError(title: "Same as root word", message: "Can't use question word as an answer")
+            return false
+        }
         // is original
         if usedWords.contains(word) {
             wordError(title: "Word already used", message: "Try thinking of a new one")
@@ -84,7 +93,7 @@ struct ContentView: View {
                 return false
             }
         }
-        // is word valid
+        // is a valid word
         let checker = UITextChecker()
         let range = NSRange(location: 0, length: word.utf16.count)
         let misspelledRange = checker.rangeOfMisspelledWord(in: word, range: range, startingAt: 0, wrap: false, language: "en")
