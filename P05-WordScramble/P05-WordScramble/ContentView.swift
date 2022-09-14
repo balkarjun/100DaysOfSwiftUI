@@ -53,7 +53,7 @@ struct ContentView: View {
                 Spacer()
                 
                 Text(totalScore, format: .number)
-                    .foregroundColor(.blue)
+                    .foregroundColor(.teal)
             }
             .font(.monospaced(.body.bold())())
             .padding(.horizontal, 30)
@@ -91,7 +91,10 @@ struct ContentView: View {
     
     func addNewWord() {
         let answer = newWord.lowercased().trimmingCharacters(in: .whitespacesAndNewlines)
-        guard isAnswerValid(word: answer) else { return }
+        guard isAnswerValid(word: answer) else {
+            newWord = ""
+            return
+        }
         
         withAnimation {
             usedWords.insert(answer, at: 0)
