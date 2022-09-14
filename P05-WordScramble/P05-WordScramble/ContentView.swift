@@ -16,49 +16,65 @@ struct ContentView: View {
     @State private var errorMessage = ""
     @State private var showingError = false
     
+    var totalScore: Int {
+        usedWords.reduce(0) { $0 + $1.count }
+    }
+    
     var body: some View {
-        NavigationView {
-            VStack {
-                HStack(spacing: 5) {
-                    ForEach(rootWord.map { String($0) }, id: \.self) { letter in
-                        Text(letter.uppercased())
-                            .font(.monospaced(.largeTitle.bold())())
-                    }
+        VStack {
+            Spacer(minLength: 36)
+            
+            HStack(spacing: 5) {
+                ForEach(rootWord.map { String($0) }, id: \.self) { letter in
+                    Text(letter.uppercased())
+                        .font(.monospaced(.largeTitle.bold())())
                 }
-                .frame(maxWidth: .infinity, alignment: .center)
-                .padding(.top, 24)
+            }
+            .frame(maxWidth: .infinity, alignment: .center)
+            .padding(.top, 24)
+            
+            TextField("Type your word", text: $newWord)
+                .font(.monospaced(.body)())
+                .autocapitalization(.none)
+                .padding()
+                .background(.thinMaterial)
+                .cornerRadius(8)
+                .padding()
+            
+            HStack {
+                Text("Total Score")
+                    .foregroundColor(.secondary)
                 
-                TextField("Type your word", text: $newWord)
-                    .font(.monospaced(.body)())
-                    .autocapitalization(.none)
-                    .padding()
-                    .background(.thinMaterial)
-                    .cornerRadius(8)
-                    .padding()
+                Spacer()
                 
-                List(usedWords, id: \.self) { word in
-                    HStack {
-                        Text(word)
-                            .font(.monospaced(.body)())
-                        
-                        Spacer()
-                        
-                        Text(word.count, format: .number)
-                            .font(.monospaced(.body.bold())())
-                            .foregroundColor(.green)
-                    }
-                    .padding(.horizontal)
+                Text(totalScore, format: .number)
+                    .foregroundColor(.blue)
+            }
+            .font(.monospaced(.body.bold())())
+            .padding(.horizontal, 30)
+            .padding(.bottom)
+            
+            List(usedWords, id: \.self) { word in
+                HStack {
+                    Text(word)
+                        .font(.monospaced(.body)())
+                    
+                    Spacer()
+                    
+                    Text(word.count, format: .number)
+                        .font(.monospaced(.body.bold())())
+                        .foregroundColor(.green)
                 }
-                .listStyle(.inset)
+                .padding(.horizontal)
             }
-            .navigationBarTitleDisplayMode(.inline)
-            .onSubmit(addNewWord)
-            .onAppear(perform: startGame)
-            .alert(errorTitle, isPresented: $showingError) {
-                Button("OK", role: .cancel) {}
-            } message: {
-                Text(errorMessage)
-            }
+            .listStyle(.inset)
+        }
+        .onSubmit(addNewWord)
+        .onAppear(perform: startGame)
+        .alert(errorTitle, isPresented: $showingError) {
+            Button("OK", role: .cancel) {}
+        } message: {
+            Text(errorMessage)
         }
     }
     
