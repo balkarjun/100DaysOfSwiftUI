@@ -22,16 +22,21 @@ struct ContentView: View {
     
     var body: some View {
         VStack {
-            Spacer(minLength: 36)
-            
-            HStack(spacing: 5) {
-                ForEach(rootWord.map { String($0) }, id: \.self) { letter in
-                    Text(letter.uppercased())
-                        .font(.monospaced(.largeTitle.bold())())
+            VStack(spacing: 12) {
+                Button("skip", action: skipWord)
+                    .font(.monospaced(.body.bold())())
+                    .buttonStyle(.bordered)
+                    .tint(.teal)
+                
+                HStack(spacing: 5) {
+                    ForEach(rootWord.map { String($0) }, id: \.self) { letter in
+                        Text(letter.uppercased())
+                            .font(.monospaced(.largeTitle.bold())())
+                    }
                 }
             }
             .frame(maxWidth: .infinity, alignment: .center)
-            .padding(.top, 24)
+            .padding(.top, 48)
             
             TextField("Type your word", text: $newWord)
                 .font(.monospaced(.body)())
@@ -76,6 +81,12 @@ struct ContentView: View {
         } message: {
             Text(errorMessage)
         }
+    }
+    
+    func skipWord() {
+        startGame()
+        usedWords.removeAll()
+        newWord = ""
     }
     
     func addNewWord() {
