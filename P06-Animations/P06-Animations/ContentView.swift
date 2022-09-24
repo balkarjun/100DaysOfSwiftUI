@@ -8,28 +8,41 @@
 import SwiftUI
 
 struct ContentView: View {
-    @State private var animationAmount = 1.0
+    @State private var dragAmount = CGSize.zero
+    @State private var isShowing = false
     
     var body: some View {
-        Button("Tap Me") {
-        }
-        .padding(50)
-        .background(.red)
-        .foregroundColor(.white)
-        .clipShape(Circle())
-        .overlay(
-            Circle()
-                .stroke(.red)
-                .scaleEffect(animationAmount)
-                .opacity(2 - animationAmount)
-                .animation(
-                    .easeInOut(duration: 1)
-                        .repeatForever(autoreverses: false),
-                    value: animationAmount
-                )
-        )
-        .onAppear {
-            animationAmount = 2
+        VStack {
+            Button {
+                withAnimation {
+                    isShowing.toggle()
+                }
+            } label: {
+                Text(isShowing ? "Hide Card" : "View Card")
+                    .font(.monospaced(.body)())
+                    .bold()
+                    .padding(.vertical, 8)
+                    .padding(.horizontal, 16)
+            }
+            .buttonStyle(.bordered)
+            .tint(.orange)
+            
+            if isShowing {
+                LinearGradient(gradient: Gradient(colors: [.yellow, .red]), startPoint: .topLeading, endPoint: .bottomTrailing)
+                    .frame(width: 300, height: 200)
+                    .clipShape(RoundedRectangle(cornerRadius: 16))
+                    .offset(dragAmount)
+                    .gesture(
+                        DragGesture()
+                            .onChanged { dragAmount = $0.translation }
+                            .onEnded { _ in
+                                withAnimation {
+                                    dragAmount = .zero
+                                }
+                            }
+                    )
+                    .transition(.scale)
+            }
         }
     }
 }
