@@ -41,8 +41,17 @@ struct ContentView: View {
                 
                 Button("Play") {
                     isPlaying = true
+                    
+                    var preValue = 0
+                    var newValue: Int
                     for _ in 1...numberOfQuestions {
-                        questions.append(Int.random(in: 2...13))
+                        // avoid consecutive duplicates
+                        repeat {
+                            newValue = Int.random(in: 2...13)
+                        } while (newValue == preValue)
+                        preValue = newValue
+                        
+                        questions.append(newValue)
                     }
                 }
             }
@@ -88,9 +97,16 @@ struct ContentView: View {
         options.append(selectedOption * questions[currentQuestion])
         
         for _ in 1...3 {
-            let value = selectedOption * Int.random(in: 1...13)
+            // avoid duplicates
+            var value: Int
+            repeat {
+                value = selectedOption * Int.random(in: 2...13)
+            } while (options.contains(value))
+            
             options.append(value)
         }
+        
+        options.shuffle()
         return options
     }
 }
