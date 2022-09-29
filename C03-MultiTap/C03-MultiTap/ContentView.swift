@@ -11,6 +11,7 @@ struct ContentView: View {
     @State private var numberOfQuestions = 5
     @State private var isPlaying = false
     @State private var selectedOption = Int.random(in: 2...13)
+    @State private var questions = [Int]()
     
     var body: some View {
         if (!isPlaying){
@@ -39,6 +40,9 @@ struct ContentView: View {
                 
                 Button("Play") {
                     isPlaying = true
+                    for _ in 1...numberOfQuestions {
+                        questions.append(Int.random(in: 2...13))
+                    }
                 }
             }
             .padding()
@@ -46,6 +50,7 @@ struct ContentView: View {
             VStack {
                 Button("Restart") {
                     isPlaying = false
+                    questions.removeAll()
                 }
                 Text("Playing with \(numberOfQuestions) questions for \(selectedOption)")
             }
