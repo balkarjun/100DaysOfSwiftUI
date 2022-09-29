@@ -12,6 +12,7 @@ struct ContentView: View {
     @State private var isPlaying = false
     @State private var selectedOption = Int.random(in: 2...13)
     @State private var questions = [Int]()
+    @State private var currentQuestion = 0
     
     var body: some View {
         if (!isPlaying){
@@ -51,10 +52,46 @@ struct ContentView: View {
                 Button("Restart") {
                     isPlaying = false
                     questions.removeAll()
+                    currentQuestion = 0
                 }
                 Text("Playing with \(numberOfQuestions) questions for \(selectedOption)")
+                
+                Text("\(selectedOption)x\(questions[currentQuestion])=?")
+                
+                ForEach(generateOptions(), id: \.self) { value in
+                    Button("\(value)") {
+                        if value == selectedOption * questions[currentQuestion] {
+                            // DEBUG: correct answer
+                            print("Correct Answer")
+                        } else {
+                            // DEBUG: wrong answer
+                            print("Wrong Answer")
+                        }
+                    }
+                }
+                
+                if currentQuestion == numberOfQuestions - 1 {
+                    Text("Finished!")
+                }
+                
+                Button("Next Question") {
+                    if currentQuestion < numberOfQuestions - 1 {
+                        currentQuestion += 1
+                    }
+                }
             }
         }
+    }
+    
+    func generateOptions() -> [Int] {
+        var options = [Int]()
+        options.append(selectedOption * questions[currentQuestion])
+        
+        for _ in 1...3 {
+            let value = selectedOption * Int.random(in: 1...13)
+            options.append(value)
+        }
+        return options
     }
 }
 
