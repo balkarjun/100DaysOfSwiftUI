@@ -10,7 +10,7 @@ import SwiftUI
 struct ContentView: View {
     @State private var numberOfQuestions = 5
     @State private var isPlaying = false
-    @State private var selectedOption = -1
+    @State private var selectedOption = Int.random(in: 2...13)
     
     var body: some View {
         if (!isPlaying){
@@ -25,7 +25,8 @@ struct ContentView: View {
                                     selectedOption = number
                                 } label : {
                                     ZStack {
-                                        Color.orange
+                                        selectedOption == number ? Color.yellow : Color.orange
+                                        
                                         Text(number, format: .number)
                                     }
                                 }
@@ -46,7 +47,7 @@ struct ContentView: View {
                 Button("Restart") {
                     isPlaying = false
                 }
-                Text("Playing with \(numberOfQuestions) questions")
+                Text("Playing with \(numberOfQuestions) questions for \(selectedOption)")
             }
         }
     }
