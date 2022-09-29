@@ -7,44 +7,30 @@
 
 import SwiftUI
 
-struct OptionCard: View {
-    var number: Int
-    
-    var body: some View {
-        ZStack {
-            Color.orange
-            Text(number, format: .number)
-        }
-    }
-}
-
 struct ContentView: View {
     @State private var numberOfQuestions = 5
     @State private var isPlaying = false
+    @State private var selectedOption = -1
     
     var body: some View {
         if (!isPlaying){
             VStack {
                 Grid() {
-                    GridRow {
-                        OptionCard(number: 2)
-                        OptionCard(number: 3)
-                        OptionCard(number: 4)
-                    }
-                    GridRow {
-                        OptionCard(number: 5)
-                        OptionCard(number: 6)
-                        OptionCard(number: 7)
-                    }
-                    GridRow {
-                        OptionCard(number: 8)
-                        OptionCard(number: 9)
-                        OptionCard(number: 10)
-                    }
-                    GridRow {
-                        OptionCard(number: 11)
-                        OptionCard(number: 12)
-                        OptionCard(number: 13)
+                    ForEach(0..<4) { row in
+                        GridRow {
+                            ForEach(0..<3) { col in
+                                let number = (3 * row) + col + 2
+                                
+                                Button {
+                                    selectedOption = number
+                                } label : {
+                                    ZStack {
+                                        Color.orange
+                                        Text(number, format: .number)
+                                    }
+                                }
+                            }
+                        }
                     }
                 }
                 
