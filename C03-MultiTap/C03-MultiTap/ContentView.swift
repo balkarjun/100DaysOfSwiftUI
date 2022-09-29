@@ -19,28 +19,56 @@ struct ContentView: View {
     
     @State private var answerOptions = [Int]()
     
+    @State private var score = 0
+    
+    @State private var selectedAnswerIndex = 0
+    
+    func isAnswerCorrect(_ idx: Int) -> Bool {
+        return answerOptions[idx] == selectedLHS * RHS[currentRHSIndex]
+    }
+    
+    func getOptionColor(_ idx: Int) -> Color {
+        if wasQuestionAnswered && selectedAnswerIndex == idx {
+            return isAnswerCorrect(idx) ? .green.opacity(0.8) : .red.opacity(0.8)
+        }
+        return .secondary.opacity(0.15)
+    }
+    
+    func getOptionOpacity(_ idx: Int) -> Double {
+        if wasQuestionAnswered {
+            if selectedAnswerIndex == idx {
+                return 1.0
+            }
+            return 0.5
+        }
+        return 1.0
+    }
+    
     var body: some View {
         VStack {
             HStack {
-                VStack {
+                VStack(spacing: 2) {
                     Text("SCORE")
+                        .font(.monospaced(.body)())
                         .bold()
                         .foregroundColor(.secondary)
                     
-                    Text(80, format: .number)
-                        .font(.title2)
+                    Text(score, format: .number)
+                        .font(.monospaced(.title2)())
                         .bold()
+                        .foregroundColor(score == 0 ? .secondary : (score < 0 ? .red : .green))
                 }
                 
                 Spacer()
                 
-                VStack {
+                VStack(spacing: 2) {
                     Text("QUESTION")
+                        .font(.monospaced(.body)())
                         .bold()
                         .foregroundColor(.secondary)
                     
                     Text("\(currentRHSIndex + 1) of \(numberOfQuestions)")
-                        .font(.title2)
+                        .font(.monospaced(.title2)())
                         .bold()
                 }
             }
@@ -53,9 +81,17 @@ struct ContentView: View {
             
             Spacer()
             if !RHS.isEmpty {
-                Text("\(selectedLHS) × \(RHS[currentRHSIndex])")
-                    .font(.system(size: 80))
-                    .bold()
+                HStack {
+                    Text(selectedLHS, format: .number)
+                        .font(.monospaced(.system(size: 90))())
+                    Text("×")
+                        .font(.system(size: 70))
+                        .foregroundColor(.secondary)
+                    Text(RHS[currentRHSIndex], format: .number)
+                        .font(.monospaced(.system(size: 90))())
+
+                }
+                .bold()
             }
             Spacer()
             if !answerOptions.isEmpty {
@@ -67,19 +103,23 @@ struct ContentView: View {
                                 
                                 Button() {
                                     wasQuestionAnswered = true
+                                    selectedAnswerIndex = idx
+                                    
                                     if answerOptions[idx] == selectedLHS * RHS[currentRHSIndex] {
-                                        print("Correct Answer")
+                                        score += 10
                                     } else {
-                                        print("Wrong Answer")
+                                        score -= 10
                                     }
                                 } label: {
                                     Text(answerOptions[idx], format: .number)
-                                        .font(.title2)
+                                        .font(.monospaced(.title2)())
                                         .bold()
                                         .padding(.vertical, 30)
                                         .frame(maxWidth: .infinity)
+                                        .foregroundColor(.primary)
                                 }
-                                .background(.thinMaterial)
+                                .background(getOptionColor(idx))
+                                .opacity(getOptionOpacity(idx))
                                 .cornerRadius(8)
                                 .disabled(wasQuestionAnswered)
                             }
@@ -96,12 +136,15 @@ struct ContentView: View {
                     settingsShown = true
                     RHS.removeAll()
                     currentRHSIndex = 0
+                    score = 0
                 } label: {
-                    Image(systemName: "repeat")
-                        .padding(.vertical, 10)
+                    Image(systemName: "arrow.clockwise")
+                        .bold()
+                        .frame(height: 36)
                         .padding(.horizontal)
                 }
                 .buttonStyle(.bordered)
+                .tint(.yellow)
                 
                 // go to next question
                 Button {
@@ -112,10 +155,12 @@ struct ContentView: View {
                     }
                 } label: {
                     Image(systemName: "arrow.right")
-                        .padding(.vertical, 10)
+                        .bold()
+                        .frame(height: 36)
                         .frame(maxWidth: .infinity)
                 }
                 .buttonStyle(.borderedProminent)
+                .tint(.yellow)
                 .disabled(currentRHSIndex >= numberOfQuestions - 1 || !wasQuestionAnswered)
             }
             .padding(.horizontal)
@@ -123,10 +168,10 @@ struct ContentView: View {
         .padding(.vertical, 30)
         .sheet(isPresented: $settingsShown) {
             VStack {
-                Text("Pick a Multiplication Table")
-                    .font(.title2)
+                Text("Multiplication Table")
+                    .font(.monospaced(.title3)())
                     .bold()
-                    .padding()
+                    .padding(.vertical)
                     .foregroundColor(.secondary)
                 
                 Grid() {
@@ -139,7 +184,7 @@ struct ContentView: View {
                                     selectedLHS = number
                                 } label : {
                                     Text(number, format: .number)
-                                        .font(.title2)
+                                        .font(.monospaced(.title2)())
                                         .bold()
                                         .padding(.vertical, 30)
                                         .frame(maxWidth: .infinity)
@@ -153,8 +198,8 @@ struct ContentView: View {
                 }
                 
                 VStack {
-                    Text("Pick Number of Questions")
-                        .font(.title2)
+                    Text("Number of Questions")
+                        .font(.monospaced(.title3)())
                         .bold()
                         .padding()
                         .foregroundColor(.secondary)
@@ -166,7 +211,7 @@ struct ContentView: View {
                                 numberOfQuestions = number
                             } label: {
                                 Text(number, format: .number)
-                                    .font(.title2)
+                                    .font(.monospaced(.title2)())
                                     .bold()
                                     .padding(.vertical, 30)
                                     .frame(maxWidth: .infinity)
