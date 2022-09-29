@@ -8,11 +8,14 @@
 import SwiftUI
 
 struct ContentView: View {
+    @State private var isPlaying = true
     @State private var numberOfQuestions = 5
-    @State private var isPlaying = false
-    @State private var selectedOption = Int.random(in: 2...13)
-    @State private var questions = [Int]()
-    @State private var currentQuestion = 0
+    
+    @State private var selectedLHS = Int.random(in: 2...13)
+    // DEBUG
+    @State private var RHS = [3, 5, 2, 8, 4]
+    // @State private var RHS = [Int]()
+    @State private var currentRHSIndex = 0
     
     var body: some View {
         if (!isPlaying){
@@ -24,10 +27,10 @@ struct ContentView: View {
                                 let number = (3 * row) + col + 2
                                 
                                 Button {
-                                    selectedOption = number
+                                    selectedLHS = number
                                 } label : {
                                     ZStack {
-                                        selectedOption == number ? Color.yellow : Color.orange
+                                        selectedLHS == number ? Color.yellow : Color.orange
                                         
                                         Text(number, format: .number)
                                     }
@@ -51,7 +54,7 @@ struct ContentView: View {
                         } while (newValue == preValue)
                         preValue = newValue
                         
-                        questions.append(newValue)
+                        RHS.append(newValue)
                     }
                 }
             }
@@ -60,16 +63,16 @@ struct ContentView: View {
             VStack {
                 Button("Restart") {
                     isPlaying = false
-                    questions.removeAll()
-                    currentQuestion = 0
+                    RHS.removeAll()
+                    currentRHSIndex = 0
                 }
-                Text("Playing with \(numberOfQuestions) questions for \(selectedOption)")
+                Text("Playing with \(numberOfQuestions) question for \(selectedLHS)")
                 
-                Text("\(selectedOption)x\(questions[currentQuestion])=?")
+                Text("\(selectedLHS)x\(RHS[currentRHSIndex])=?")
                 
                 ForEach(generateOptions(), id: \.self) { value in
                     Button("\(value)") {
-                        if value == selectedOption * questions[currentQuestion] {
+                        if value == selectedLHS * RHS[currentRHSIndex] {
                             // DEBUG: correct answer
                             print("Correct Answer")
                         } else {
@@ -79,13 +82,13 @@ struct ContentView: View {
                     }
                 }
                 
-                if currentQuestion == numberOfQuestions - 1 {
+                if currentRHSIndex == numberOfQuestions - 1 {
                     Text("Finished!")
                 }
                 
                 Button("Next Question") {
-                    if currentQuestion < numberOfQuestions - 1 {
-                        currentQuestion += 1
+                    if currentRHSIndex < numberOfQuestions - 1 {
+                        currentRHSIndex += 1
                     }
                 }
             }
@@ -94,13 +97,13 @@ struct ContentView: View {
     
     func generateOptions() -> [Int] {
         var options = [Int]()
-        options.append(selectedOption * questions[currentQuestion])
+        options.append(selectedLHS * RHS[currentRHSIndex])
         
         for _ in 1...3 {
             // avoid duplicates
             var value: Int
             repeat {
-                value = selectedOption * Int.random(in: 2...13)
+                value = selectedLHS * Int.random(in: 2...13)
             } while (options.contains(value))
             
             options.append(value)
