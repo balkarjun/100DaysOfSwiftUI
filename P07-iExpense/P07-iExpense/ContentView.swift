@@ -15,27 +15,25 @@ struct ContentView: View {
         NavigationStack {
             List {
                 ForEach(expenses.items) { item in
-                    HStack {
-                        VStack(alignment: .leading) {
+                    VStack(alignment: .leading) {
+                        Text(item.type)
+                            .font(.headline)
+                            .foregroundColor(item.type == "Personal" ? .blue : .orange)
+                        
+                        HStack {
                             Text(item.name)
-                                .font(.headline)
-                            HStack {
-                                Circle()
-                                    .fill(item.type == "Personal" ? .blue : .orange)
-                                    .frame(width: 8, height: 8)
-                                
-                                Text(item.type)
-                            }
+                                .font(.title3)
+                            
+                            Spacer()
+                            
+                            Text(item.amount, format: .currency(code: Locale.current.currency?.identifier ?? "USD"))
+                                .font(.title3.bold())
                         }
-                        
-                        Spacer()
-                        
-                        Text(item.amount, format: .currency(code: Locale.current.currency?.identifier ?? "USD"))
-                            .font(.title3)
                     }
                 }
                 .onDelete(perform: removeItems)
             }
+            .listStyle(.inset)
             .navigationTitle("iExpense")
             .toolbar {
                 ToolbarItem(placement: .bottomBar) {

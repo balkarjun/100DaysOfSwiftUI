@@ -20,24 +20,45 @@ struct AddView: View {
     var body: some View {
         NavigationStack {
             Form {
-                TextField("Name", text: $name)
+                Section {
+                    TextField("Expense Name", text: $name)
+                } header: {
+                    Text("Name")
+                }
                 
                 Picker("Type", selection: $type) {
                     ForEach(types, id: \.self) {
                         Text($0)
+                            .bold()
+                            .foregroundColor($0 == "Personal" ? .blue : .orange)
                     }
                 }
+                .pickerStyle(.inline)
                 
-                TextField("Amount", value: $amount, format: .currency(code: Locale.current.currency?.identifier ?? "USD"))
-                    .keyboardType(.decimalPad)
+                Section {
+                    TextField("Amount", value: $amount, format: .currency(code: Locale.current.currency?.identifier ?? "USD"))
+                        .keyboardType(.decimalPad)
+                } header: {
+                    Text("Amount")
+                }
             }
-            .navigationTitle("Add New Expense")
+            .navigationTitle("New Expense")
+            .navigationBarTitleDisplayMode(.inline)
             .toolbar {
-                Button("Save") {
-                    let item = ExpenseItem(name: name, type: type, amount: amount)
-                    expenses.items.append(item)
-                    
-                    dismiss()
+                ToolbarItem(placement: .bottomBar) {
+                    Button {
+                        let item = ExpenseItem(name: name, type: type, amount: amount)
+                        expenses.items.append(item)
+                        
+                        dismiss()
+                    } label: {
+                        Text("Save")
+                            .padding(.vertical, 8)
+                            .frame(maxWidth: .infinity)
+                    }
+                    .buttonStyle(.bordered)
+                    .tint(.blue)
+                    .padding(.bottom, 32)
                 }
             }
         }
