@@ -38,10 +38,20 @@ struct ContentView: View {
             }
             .navigationTitle("iExpense")
             .toolbar {
-                Button {
-                    showingAddExpense = true
-                } label: {
-                    Image(systemName: "plus")
+                ToolbarItem(placement: .bottomBar) {
+                    Button {
+                        showingAddExpense = true
+                    } label: {
+                        ZStack {
+                            Circle()
+                                .fill(.blue.opacity(0.8))
+                                .frame(width: 50, height: 50)
+                            
+                            Image(systemName: "plus")
+                                .font(.title3.bold())
+                                .foregroundColor(.white)
+                        }
+                    }
                 }
             }
             .sheet(isPresented: $showingAddExpense) {
