@@ -12,3 +12,4 @@ Projects | Preview
 <sub>Days 29-31</sub> <br> **[Project 05](P05-WordScramble) - WordScramble** <br> Game where you find new words <br> from a given 8-letter word | <img src="https://user-images.githubusercontent.com/23068820/190365098-63981ab3-dcff-40c3-8436-d2fd3b033baf.png" width="300">
 <sub>Days 32-34</sub> <br> **[Project 06](P06-Animations) - Animations** | `no preview`
 <sub>Day 35</sub> <br> **[Challenge 03](C03-MultiTap) - MultiTap** <br> An edutainment app to teach <br> multiplication tables | <img src="https://user-images.githubusercontent.com/23068820/193420320-bf344c69-df27-46a3-903d-2028bdd8a48d.png" width="600">
+<sub>Days 36-38</sub> <br> **[Project 07](P07-iExpense) - iExpense** <br> A simple expense tracker | <img src="https://user-images.githubusercontent.com/23068820/194622376-c125f628-6be1-4434-9267-48f4b5d7c009.png" width="600">
