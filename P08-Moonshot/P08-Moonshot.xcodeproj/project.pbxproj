@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		E546921D29005894002B05E3 /* Color-Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = E546921C29005894002B05E3 /* Color-Theme.swift */; };
 		E554020E28EF0B35009F084A /* P08_MoonshotApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = E554020D28EF0B35009F084A /* P08_MoonshotApp.swift */; };
 		E554021028EF0B35009F084A /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E554020F28EF0B35009F084A /* ContentView.swift */; };
 		E554021228EF0B35009F084A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E554021128EF0B35009F084A /* Assets.xcassets */; };
@@ -19,6 +20,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		E546921C29005894002B05E3 /* Color-Theme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Color-Theme.swift"; sourceTree = "<group>"; };
 		E554020A28EF0B35009F084A /* P08-Moonshot.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "P08-Moonshot.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		E554020D28EF0B35009F084A /* P08_MoonshotApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = P08_MoonshotApp.swift; sourceTree = "<group>"; };
 		E554020F28EF0B35009F084A /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -63,6 +65,7 @@
 			children = (
 				E554020D28EF0B35009F084A /* P08_MoonshotApp.swift */,
 				E554020F28EF0B35009F084A /* ContentView.swift */,
+				E546921C29005894002B05E3 /* Color-Theme.swift */,
 				E5AE403828EF293B009D9331 /* Mission.swift */,
 				E5AE403628EF27A4009D9331 /* Bundle-Decodable.swift */,
 				E5AE403428EF2745009D9331 /* Astronaut.swift */,
@@ -155,6 +158,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				E5AE403528EF2745009D9331 /* Astronaut.swift in Sources */,
+				E546921D29005894002B05E3 /* Color-Theme.swift in Sources */,
 				E554021028EF0B35009F084A /* ContentView.swift in Sources */,
 				E554020E28EF0B35009F084A /* P08_MoonshotApp.swift in Sources */,
 				E5AE403928EF293B009D9331 /* Mission.swift in Sources */,
