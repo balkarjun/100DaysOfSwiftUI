@@ -20,10 +20,12 @@ struct Triangle: Shape {
     }
 }
 
-struct Arc: Shape {
+struct Arc: InsettableShape {
     let startAngle: Angle
     let endAngle: Angle
     let clockwise: Bool
+    
+    var insetAmount = 0.0
     
     func path(in rect: CGRect) -> Path {
         let rotationAdjustment = Angle.degrees(90)
@@ -32,26 +34,36 @@ struct Arc: Shape {
         
         var path = Path()
         
-        path.addArc(center: CGPoint(x: rect.midX, y: rect.midY), radius: rect.width / 2, startAngle: modifiedStartAngle, endAngle: modifiedEndAngle, clockwise: !clockwise)
+        path.addArc(center: CGPoint(x: rect.midX, y: rect.midY), radius: rect.width / 2 - insetAmount, startAngle: modifiedStartAngle, endAngle: modifiedEndAngle, clockwise: !clockwise)
         
         return path
+    }
+    
+    func inset(by amount: CGFloat) -> some InsettableShape {
+        var arc = self
+        
+        arc.insetAmount += amount
+        return arc
     }
 }
 
 struct ContentView: View {
     var body: some View {
         VStack {
-            Triangle()
-                .stroke(.red.gradient, style: StrokeStyle(lineWidth: 16, lineCap: .round, lineJoin: .round))
-                .frame(width: 240, height: 200)
-            
-            Spacer()
-            
-            Arc(startAngle: .degrees(0), endAngle: .degrees(110), clockwise: true)
-                .stroke(.blue.gradient, style: StrokeStyle(lineWidth: 16, lineCap: .round, lineJoin: .round))
-                .frame(width: 300, height: 300)
+            ZStack {
+                Arc(startAngle: .degrees(-60), endAngle: .degrees(60), clockwise: true)
+                    .strokeBorder(.blue.gradient.opacity(0.1), style: StrokeStyle(lineWidth: 16, lineCap: .round, lineJoin: .round))
+                    .frame(width: 300)
+                
+                Arc(startAngle: .degrees(-60), endAngle: .degrees(20), clockwise: true)
+                    .strokeBorder(.blue.gradient, style: StrokeStyle(lineWidth: 16, lineCap: .round, lineJoin: .round))
+                    .frame(width: 300)
+                
+                Triangle()
+                    .stroke(.red.gradient, style: StrokeStyle(lineWidth: 8, lineCap: .round, lineJoin: .round))
+                    .frame(width: 50, height: 40)
+            }
         }
-        .padding()
     }
 }
 
