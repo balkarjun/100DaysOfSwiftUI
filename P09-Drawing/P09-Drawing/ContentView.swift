@@ -178,7 +178,7 @@ struct Trapezoid: Shape {
     }
 }
 
-struct Day44Part3: View {
+struct Day45Part1: View {
     @State private var insetAmount = 50.0
     var body: some View {
         Trapezoid(insetAmount: insetAmount)
@@ -227,7 +227,7 @@ struct Checkerboard: Shape {
     }
 }
 
-struct Day44Part4: View {
+struct Day45Part2: View {
     @State private var rows = 4
     @State private var columns = 4
     
@@ -247,7 +247,7 @@ struct Day44Part4: View {
 
 struct ContentView: View {
     var body: some View {
-        Day44Part4()
+        Day45Part2()
     }
 }
 
