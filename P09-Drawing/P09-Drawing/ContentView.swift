@@ -191,9 +191,63 @@ struct Day44Part3: View {
     }
 }
 
+struct Checkerboard: Shape {
+    var rows: Int
+    var columns: Int
+    
+    var animatableData: AnimatablePair<Double, Double> {
+        get {
+            AnimatablePair(Double(rows), Double(columns))
+        }
+        
+        set {
+            rows = Int(newValue.first)
+            columns = Int(newValue.second)
+        }
+    }
+    
+    func path(in rect: CGRect) -> Path {
+        var path = Path()
+        
+        let rowSize = rect.height / Double(rows)
+        let columnSize = rect.width / Double(columns)
+        
+        for row in 0..<rows {
+            for column in 0..<columns {
+                if (row + column) % 2 == 0 {
+                    let startX = columnSize * Double(column)
+                    let startY = rowSize * Double(row)
+                    
+                    let rect = CGRect(x: startX, y: startY, width: columnSize, height: rowSize)
+                    path.addRect(rect)
+                }
+            }
+        }
+        return path
+    }
+}
+
+struct Day44Part4: View {
+    @State private var rows = 4
+    @State private var columns = 4
+    
+    var body: some View {
+        Checkerboard(rows: rows, columns: columns)
+            .onTapGesture {
+                withAnimation {
+                    rows = 8
+                    columns = 8
+                }
+            }
+            .frame(width: 300, height: 300)
+            .background(.thinMaterial)
+            .cornerRadius(8)
+    }
+}
+
 struct ContentView: View {
     var body: some View {
-        Day44Part3()
+        Day44Part4()
     }
 }
 
