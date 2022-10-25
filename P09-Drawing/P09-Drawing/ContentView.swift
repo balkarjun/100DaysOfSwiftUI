@@ -93,7 +93,8 @@ struct Day44Part1: View {
     var body: some View {
         VStack {
             Flower(petalOffset: petalOffset, petalWidth: petalWidth)
-                .fill(.orange, style: FillStyle(eoFill: true))
+//                .fill(.orange, style: FillStyle(eoFill: true))
+                .stroke(.orange, lineWidth: 3)
                 .padding()
             
             Text("Offset")
@@ -148,10 +149,16 @@ struct Day44Part2: View {
     
     var body: some View {
         VStack {
+            Spacer()
             ColorCyclingCircle(amount: colorCycle)
                 .frame(width: 300, height: 300)
             
+            Spacer()
+            
             Slider(value: $colorCycle)
+                .padding(.horizontal)
+            
+            Spacer()
         }
     }
     
@@ -247,7 +254,7 @@ struct Day45Part2: View {
 
 struct ContentView: View {
     var body: some View {
-        Day45Part2()
+        Day44Part2()
     }
 }
 
