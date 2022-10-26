@@ -8,15 +8,52 @@
 import SwiftUI
 
 struct CheckoutView: View {
-    @ObservedObject var order: Order 
+    @ObservedObject var order: Order
     
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        ScrollView {
+            VStack {
+                AsyncImage(url: URL(string: "https://hws.dev/img/cupcakes@3x.jpg"), scale: 3) { image in
+                    image
+                        .resizable()
+                        .scaledToFit()
+                        .cornerRadius(8)
+                } placeholder: {
+                    ProgressView()
+                }
+                .frame(height: 233)
+                .padding(.horizontal)
+                
+                VStack {
+                    Text("your total is")
+                        .font(.subheadline)
+                        .foregroundColor(.secondary)
+                    
+                    Text(order.cost, format: .currency(code: "USD"))
+                        .font(.title.bold())
+                }
+                
+                Button {
+                    
+                } label: {
+                    Text("Place Order")
+                        .font(.body.bold())
+                        .padding(.vertical, 8)
+                        .frame(maxWidth: .infinity)
+                }
+                .buttonStyle(.borderedProminent)
+                .padding()
+            }
+        }
+        .navigationTitle("Checkout")
+        .navigationBarTitleDisplayMode(.inline)
     }
 }
 
 struct CheckoutView_Previews: PreviewProvider {
     static var previews: some View {
-        CheckoutView(order: Order())
+        NavigationStack {
+            CheckoutView(order: Order())
+        }
     }
 }
